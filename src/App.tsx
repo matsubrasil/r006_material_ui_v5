@@ -1,14 +1,16 @@
 import React from 'react';
 import { CssBaseline } from '@mui/material';
+
+import { AppThemeProvider } from 'shared/contexts';
 import { AppRoutes } from 'routes';
-import { ThemeProvider } from '@mui/system';
-import { LightTheme } from 'shared/themes';
 
 export const App = () => {
   return (
-    <ThemeProvider theme={LightTheme}>
+    <>
       <CssBaseline />
-      <AppRoutes />
-    </ThemeProvider>
+      <AppThemeProvider>
+        <AppRoutes />
+      </AppThemeProvider>
+    </>
   );
 };
