@@ -1,6 +1,12 @@
 import React from "react";
-import { AppRoutes } from "./routes";
+import { CssBaseline } from "@mui/material";
+import { AppRoutes } from "routes";
 
 export const App = () => {
-  return <AppRoutes />;
+  return (
+    <>
+      <CssBaseline />
+      <AppRoutes />
+    </>
+  );
 };
