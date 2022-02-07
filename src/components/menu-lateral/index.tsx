@@ -8,14 +8,25 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  useMediaQuery,
   useTheme,
 } from '@mui/material';
+import { useDrawerContext } from 'shared/contexts';
 
 export const MenuLateral = ({ children }: { children: JSX.Element }) => {
   const theme = useTheme();
+  const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const { isDrawerOpen, toggleDrawerOpen } = useDrawerContext();
+
   return (
     <>
-      <Drawer anchor='left' variant='permanent'>
+      <Drawer
+        anchor='left'
+        open={isDrawerOpen}
+        variant={smDown ? 'temporary' : 'permanent'}
+        onClose={toggleDrawerOpen}
+      >
         <Box
           width={theme.spacing(28)}
           height='100%'
@@ -53,7 +64,7 @@ export const MenuLateral = ({ children }: { children: JSX.Element }) => {
           </Box>
         </Box>
       </Drawer>
-      <Box height='100%' marginLeft={theme.spacing(28)}>
+      <Box height='100%' marginLeft={smDown ? 0 : theme.spacing(28)}>
         {children}
       </Box>
     </>
