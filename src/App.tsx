@@ -3,13 +3,19 @@ import { CssBaseline } from '@mui/material';
 
 import { AppThemeProvider } from 'shared/contexts';
 import { AppRoutes } from 'routes';
+import { MenuLateral } from 'components';
+import { BrowserRouter } from 'react-router-dom';
 
 export const App = () => {
   return (
     <>
       <CssBaseline />
       <AppThemeProvider>
-        <AppRoutes />
+        <BrowserRouter>
+          <MenuLateral>
+            <AppRoutes />
+          </MenuLateral>
+        </BrowserRouter>
       </AppThemeProvider>
     </>
   );
