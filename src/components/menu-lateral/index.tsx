@@ -11,7 +11,38 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 import { useDrawerContext } from 'shared/contexts';
+
+interface IListItemLinkProps {
+  to: string;
+  icon: string;
+  label: string;
+  onClick: (() => void) | undefined;
+}
+
+const ListItemLink = ({ to, icon, label, onClick }: IListItemLinkProps) => {
+  const navigate = useNavigate();
+  const resolvedPath = useResolvedPath(to);
+  const matchLinkRoute = useMatch({
+    path: resolvedPath.pathname,
+    end: false,
+  });
+
+  const handleClick = () => {
+    navigate(to);
+    onClick?.();
+  };
+
+  return (
+    <ListItemButton selected={!!matchLinkRoute} onClick={handleClick}>
+      <ListItemIcon>
+        <Icon>{icon}</Icon>
+      </ListItemIcon>
+      <ListItemText primary={label} />
+    </ListItemButton>
+  );
+};
 
 export const MenuLateral = ({ children }: { children: JSX.Element }) => {
   const theme = useTheme();
@@ -54,12 +85,12 @@ export const MenuLateral = ({ children }: { children: JSX.Element }) => {
           <Divider />
           <Box flex={1}>
             <List component='nav'>
-              <ListItemButton>
-                <ListItemIcon>
-                  <Icon>home</Icon>
-                </ListItemIcon>
-                <ListItemText primary='Página Inicial' />
-              </ListItemButton>
+              <ListItemLink
+                to='/pagina-inicial'
+                icon='home'
+                label='Página Inicial'
+                onClick={smDown ? toggleDrawerOpen : undefined}
+              />
             </List>
           </Box>
         </Box>
