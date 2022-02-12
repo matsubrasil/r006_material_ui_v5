@@ -48,7 +48,7 @@ export const MenuLateral = ({ children }: { children: JSX.Element }) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const { isDrawerOpen, toggleDrawerOpen } = useDrawerContext();
+  const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext();
 
   return (
     <>
@@ -85,12 +85,15 @@ export const MenuLateral = ({ children }: { children: JSX.Element }) => {
           <Divider />
           <Box flex={1}>
             <List component='nav'>
-              <ListItemLink
-                to='/pagina-inicial'
-                icon='home'
-                label='Página Inicial'
-                onClick={smDown ? toggleDrawerOpen : undefined}
-              />
+              {drawerOptions.map(({ path, icon, label }) => (
+                <ListItemLink
+                  key={path}
+                  to={path}
+                  icon={icon}
+                  label={label}
+                  onClick={smDown ? toggleDrawerOpen : undefined}
+                />
+              ))}
             </List>
           </Box>
         </Box>
