@@ -9,7 +9,6 @@ import { BrowserRouter } from 'react-router-dom';
 export const App = () => {
   return (
     <>
-      <CssBaseline />
       <AppThemeProvider>
         <DrawerProvider>
           <BrowserRouter>
@@ -19,6 +18,7 @@ export const App = () => {
           </BrowserRouter>
         </DrawerProvider>
       </AppThemeProvider>
+      <CssBaseline />
     </>
   );
 };

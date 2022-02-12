@@ -1,2 +1,3 @@
 export * from './pagina-inicial.page';
-export * from './cidades.page';
+export * from './Cidades';
+export * from './Dashboard';
