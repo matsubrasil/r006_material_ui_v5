@@ -2,7 +2,7 @@ import { LayoutBase } from 'layouts';
 
 export const CidadesPage = () => {
   return (
-    <LayoutBase>
+    <LayoutBase title='Cidades'>
       <p>Cidades</p>
     </LayoutBase>
   );

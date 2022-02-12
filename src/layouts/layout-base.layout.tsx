@@ -12,11 +12,13 @@ import { useDrawerContext } from 'shared/contexts';
 
 interface ILayoutBaseProps {
   title?: string;
+  toolbar?: React.ReactNode;
   children?: React.ReactNode;
 }
 
-export const LayoutBase = ({ children, title }: ILayoutBaseProps) => {
+export const LayoutBase = ({ children, title, toolbar }: ILayoutBaseProps) => {
   const smDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+  const mdDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
   const theme = useTheme();
   const { toggleDrawerOpen } = useDrawerContext();
 
@@ -27,10 +29,10 @@ export const LayoutBase = ({ children, title }: ILayoutBaseProps) => {
       <Box
         sx={{
           padding: theme.spacing(1),
-          height: theme.spacing(12),
           display: 'flex',
           alignItems: 'center',
           gap: 1,
+          height: theme.spacing(smDown ? 6 : mdDown ? 8 : 12),
         }}
       >
         {smDown && (
@@ -39,9 +41,19 @@ export const LayoutBase = ({ children, title }: ILayoutBaseProps) => {
           </IconButton>
         )}
 
-        <Typography variant='h5'>{title}</Typography>
+        <Typography
+          overflow='hidden'
+          whiteSpace='nowrap'
+          textOverflow='ellipsis'
+          variant={smDown ? 'h5' : mdDown ? 'h4' : 'h3'}
+        >
+          {title}
+        </Typography>
       </Box>
-      <Box>Barra de Ferramentas</Box>
+      {toolbar && (
+        /** */
+        <Box sx={{ flex: 1, overflow: 'auto' }}>{toolbar}</Box>
+      )}
       <Box>{children}</Box>
     </Box>
   );
