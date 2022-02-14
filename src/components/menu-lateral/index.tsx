@@ -12,7 +12,7 @@ import {
   useTheme,
 } from '@mui/material';
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
-import { useDrawerContext } from 'shared/contexts';
+import { useAppThemeContext, useDrawerContext } from 'shared/contexts';
 
 interface IListItemLinkProps {
   to: string;
@@ -49,6 +49,7 @@ export const MenuLateral = ({ children }: { children: JSX.Element }) => {
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
   const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext();
+  const { toggleTheme } = useAppThemeContext();
 
   return (
     <>
@@ -95,6 +96,14 @@ export const MenuLateral = ({ children }: { children: JSX.Element }) => {
                 />
               ))}
             </List>
+          </Box>
+          <Box>
+            <ListItemButton onClick={toggleTheme}>
+              <ListItemIcon>
+                <Icon>dark_mode</Icon>
+              </ListItemIcon>
+              <ListItemText primary='Alternar tema' />
+            </ListItemButton>
           </Box>
         </Box>
       </Drawer>
