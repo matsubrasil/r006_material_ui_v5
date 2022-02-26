@@ -1,13 +1,13 @@
 import React from 'react';
 import { LayoutBase } from 'layouts';
-import BarraFerramentas from 'components/barra-ferramentas';
+import FerramentasDaListagem from 'components/ferramentas-listagem';
 
 export const Dashboard = () => {
   return (
     <LayoutBase
       title='Dashboard'
       toolbar={
-        <BarraFerramentas mostrarInputBusca textoBotaoNovo='Adicionar' />
+        <FerramentasDaListagem mostrarInputBusca textoBotaoNovo='Adicionar' />
       }
     >
       Dashboard

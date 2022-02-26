@@ -1,6 +1,6 @@
 import { Box, Button, Icon, Paper, TextField, useTheme } from '@mui/material';
 
-interface IBarraFerramentasProps {
+interface IFerramentasDaListagemProps {
   textoDaBusca?: string;
   mostrarInputBusca?: boolean;
   aoMudarTextoDaBusca?: (novoTexto: string) => void;
@@ -9,7 +9,7 @@ interface IBarraFerramentasProps {
   aoClicarEmNovo?: () => void;
 }
 
-const BarraFerramentas = ({
+const FerramentasDaListagem = ({
   textoDaBusca = '',
   mostrarInputBusca = false,
   aoMudarTextoDaBusca,
@@ -17,7 +17,7 @@ const BarraFerramentas = ({
   textoBotaoNovo = 'Novo',
   mostrarBotaoNovo = true,
   aoClicarEmNovo,
-}: IBarraFerramentasProps) => {
+}: IFerramentasDaListagemProps) => {
   const theme = useTheme();
   return (
     <Box
@@ -55,4 +55,4 @@ const BarraFerramentas = ({
   );
 };
 
-export default BarraFerramentas;
+export default FerramentasDaListagem;
