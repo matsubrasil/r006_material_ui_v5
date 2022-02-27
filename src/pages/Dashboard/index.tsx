@@ -10,7 +10,7 @@ export const Dashboard = () => {
       // toolbar={
       //   <FerramentasDaListagem mostrarInputBusca textoBotaoNovo='Adicionar' />
       // }
-      toolbar={<FerramentasDeDetalhes />}
+      toolbar={<FerramentasDeDetalhes mostrarBotaoSalvarEFechar />}
     >
       Dashboard
     </LayoutBase>
