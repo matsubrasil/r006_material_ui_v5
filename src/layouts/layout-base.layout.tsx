@@ -52,9 +52,9 @@ export const LayoutBase = ({ children, title, toolbar }: ILayoutBaseProps) => {
       </Box>
       {toolbar && (
         /** */
-        <Box sx={{ flex: 1, overflow: 'auto' }}>{toolbar}</Box>
+        <Box>{toolbar}</Box>
       )}
-      <Box>{children}</Box>
+      <Box sx={{ flex: 1, overflow: 'auto' }}>{children}</Box>
     </Box>
   );
 };

@@ -22,7 +22,7 @@ const FerramentasDaListagem = ({
   return (
     <Box
       component={Paper}
-      height={theme.spacing(6)}
+      height={theme.spacing(5)}
       marginX={1}
       padding={1}
       paddingX={2}
