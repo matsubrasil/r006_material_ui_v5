@@ -7,7 +7,12 @@ export const Dashboard = () => {
   return (
     <LayoutBase
       title='Dashboard'
-      toolbar={<FerramentasDeDetalhes mostrarBotaoSalvarEFechar />}
+      toolbar={
+        <FerramentasDeDetalhes
+          mostrarBotaoSalvarEFechar
+          mostrarBotaoSalvarEFecharCarregando
+        />
+      }
     >
       Dashboard
     </LayoutBase>
