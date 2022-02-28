@@ -7,9 +7,6 @@ export const Dashboard = () => {
   return (
     <LayoutBase
       title='Dashboard'
-      // toolbar={
-      //   <FerramentasDaListagem mostrarInputBusca textoBotaoNovo='Adicionar' />
-      // }
       toolbar={<FerramentasDeDetalhes mostrarBotaoSalvarEFechar />}
     >
       Dashboard
