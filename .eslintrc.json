@@ -19,7 +19,7 @@
   },
   "plugins": ["react", "@typescript-eslint", "eslint-plugin-prettier"],
   "rules": {
-    "indent": ["warning", 2],
+    "indent": ["off", 2],
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
