@@ -16,6 +16,7 @@ import { LayoutBase } from 'layouts';
 import { useDebounce } from 'shared/hooks';
 import { IListagemPessoa, PessoasService } from 'services/api';
 import FerramentasDaListagem from 'components/ferramentas-listagem';
+import { Environment } from 'shared/environments';
 
 export const ListagemDePessoas: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -80,6 +81,11 @@ export const ListagemDePessoas: React.FC = () => {
               </TableRow>
             ))}
           </TableBody>
+          {/* Se o count=0  e isLoading = false, então, mostre a mensagem */}
+          {!totalCount && !isLoading && (
+            <caption>{Environment.LISTAGEM_VAZIA}</caption>
+          )}
+
           {isLoading && (
             <TableFooter>
               <TableRow>
