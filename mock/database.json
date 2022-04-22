@@ -5,6 +5,36 @@
       "email": "xuxa@email.com",
       "cidadeId": 1,
       "nomeCompleto": "Xuxa da Silva"
+    },
+    {
+      "id": 2,
+      "email": "mariazina@email.com",
+      "cidadeId": 1,
+      "nomeCompleto": "Mariazinha"
+    },
+    {
+      "id": 3,
+      "email": "heman@email.com",
+      "cidadeId": 1,
+      "nomeCompleto": "Heman"
+    },
+    {
+      "id": 4,
+      "email": "spider@email.com",
+      "cidadeId": 1,
+      "nomeCompleto": "Spiderman"
+    },
+    {
+      "id": 5,
+      "email": "godzilla@email.com",
+      "cidadeId": 1,
+      "nomeCompleto": "Godzilla"
+    },
+    {
+      "id": 6,
+      "email": "totoro@email.com",
+      "cidadeId": 1,
+      "nomeCompleto": "Totoro"
     }
   ]
 }

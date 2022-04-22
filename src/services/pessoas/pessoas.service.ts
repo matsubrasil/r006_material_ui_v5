@@ -1,14 +1,14 @@
 import { apiInstance } from 'services/axios/instance';
 import { Environment } from 'shared/environments';
 
-interface IListagemPessoa {
+export interface IListagemPessoa {
   id: number;
   email: string;
   cidadeId: number;
   nomeCompleto: string;
 }
 
-interface IDetalhePessoa {
+export interface IDetalhePessoa {
   id: number;
   email: string;
   cidadeId: number;

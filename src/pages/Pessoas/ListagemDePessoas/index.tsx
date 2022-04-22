@@ -1,29 +1,43 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-
-import { useDebounce } from 'shared/hooks';
-import { PessoasService } from 'services/api';
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@mui/material';
 
 import { LayoutBase } from 'layouts';
+import { useDebounce } from 'shared/hooks';
+import { IListagemPessoa, PessoasService } from 'services/api';
 import FerramentasDaListagem from 'components/ferramentas-listagem';
 
 export const ListagemDePessoas: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  // const isError = (err: unknown): err is Error => err instanceof Error;
-  const { debounce } = useDebounce(3000, false);
+  const { debounce } = useDebounce();
+
+  const [rows, setRows] = useState<IListagemPessoa[]>([]);
+  const [totalCount, setTotalCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const busca = useMemo(() => {
     return searchParams.get('busca') || '';
   }, [searchParams]);
 
   useEffect(() => {
+    setIsLoading(true);
     debounce(() => {
       PessoasService.getAll(1, busca).then((result) => {
+        setIsLoading(false);
         if (result instanceof Error) {
           alert(result.message);
           return;
         }
-        console.log(result);
+        setTotalCount(result.totalCount);
+        setRows(result.data);
       });
     });
   }, [busca]);
@@ -42,7 +56,30 @@ export const ListagemDePessoas: React.FC = () => {
         />
       }
     >
-      ListagemDePessoas
+      <TableContainer
+        component={Paper}
+        variant='outlined'
+        sx={{ m: 1, width: 'auto' }}
+      >
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Ações</TableCell>
+              <TableCell>Nome completo</TableCell>
+              <TableCell>Email</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell></TableCell>
+                <TableCell>{row.nomeCompleto}</TableCell>
+                <TableCell>{row.email}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </LayoutBase>
   );
 };
