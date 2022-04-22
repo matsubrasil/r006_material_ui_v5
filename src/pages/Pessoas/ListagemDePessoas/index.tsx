@@ -1,11 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
+  LinearProgress,
   Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
+  TableFooter,
   TableHead,
   TableRow,
 } from '@mui/material';
@@ -78,6 +80,15 @@ export const ListagemDePessoas: React.FC = () => {
               </TableRow>
             ))}
           </TableBody>
+          {isLoading && (
+            <TableFooter>
+              <TableRow>
+                <TableCell colSpan={3}>
+                  <LinearProgress variant='indeterminate' />
+                </TableCell>
+              </TableRow>
+            </TableFooter>
+          )}
         </Table>
       </TableContainer>
     </LayoutBase>
