@@ -12,6 +12,7 @@ import {
   useTheme,
 } from '@mui/material';
 
+// interface
 interface IFerramentasDeDetalhesProps {
   textoBotaoNovo?: string;
 
@@ -34,6 +35,7 @@ interface IFerramentasDeDetalhesProps {
   aoClicarEmSalvarEFechar?: () => void;
 }
 
+// main
 const FerramentasDeDetalhes = ({
   textoBotaoNovo = 'Novo',
 

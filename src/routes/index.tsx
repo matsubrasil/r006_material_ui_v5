@@ -1,9 +1,13 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
-import { useDrawerContext } from 'shared/contexts';
-
 import { useEffect } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+
+// components
 import { Dashboard, DetalheDePessoas, ListagemDePessoas } from 'pages';
 
+// shared
+import { useDrawerContext } from 'shared/contexts';
+
+// main
 export const AppRoutes = () => {
   const { setDrawerOptionsMenu } = useDrawerContext();
 

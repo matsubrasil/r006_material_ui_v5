@@ -15,12 +15,18 @@ import {
   TableRow,
 } from '@mui/material';
 
+// components
 import { LayoutBase } from 'layouts';
-import { useDebounce } from 'shared/hooks';
-import { Environment } from 'shared/environments';
-import { IListagemPessoa, PessoasService } from 'services/api';
 import FerramentasDaListagem from 'components/ferramentas-listagem';
 
+// shared
+import { useDebounce } from 'shared/hooks';
+import { Environment } from 'shared/environments';
+
+// services
+import { IListagemPessoa, PessoasService } from 'services/api';
+
+// main
 export const ListagemDePessoas: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { debounce } = useDebounce();
@@ -105,7 +111,7 @@ export const ListagemDePessoas: React.FC = () => {
                   </IconButton>
                   <IconButton
                     size='small'
-                    onClick={() => navigate(`/pessoas/detalhe/:${row.id}`)}
+                    onClick={() => navigate(`/pessoas/detalhe/${row.id}`)}
                   >
                     <Icon>edit</Icon>
                   </IconButton>
