@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
+  IconButton,
+  Icon,
   LinearProgress,
   Pagination,
   Paper,
@@ -15,13 +17,14 @@ import {
 
 import { LayoutBase } from 'layouts';
 import { useDebounce } from 'shared/hooks';
+import { Environment } from 'shared/environments';
 import { IListagemPessoa, PessoasService } from 'services/api';
 import FerramentasDaListagem from 'components/ferramentas-listagem';
-import { Environment } from 'shared/environments';
 
 export const ListagemDePessoas: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { debounce } = useDebounce();
+  const navigate = useNavigate();
 
   const [rows, setRows] = useState<IListagemPessoa[]>([]);
   const [totalCount, setTotalCount] = useState(0);
@@ -51,6 +54,18 @@ export const ListagemDePessoas: React.FC = () => {
     });
   }, [busca, pagina]);
 
+  const handleDelete = (id: number) => {
+    if (confirm('Você tem certeza que deseja excluir?')) {
+      PessoasService.deleteById(id).then((result) => {
+        if (result instanceof Error) {
+          alert(result.message);
+        } else {
+          setRows((oldRows) => [...oldRows.filter((row) => row.id !== id)]);
+          confirm('Registro excluído com sucesso');
+        }
+      });
+    }
+  };
   return (
     <LayoutBase
       title='Listagem de pessoas'
@@ -73,7 +88,9 @@ export const ListagemDePessoas: React.FC = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Ações</TableCell>
+              <TableCell align='center' sx={{ maxWidth: 50 }}>
+                Ações
+              </TableCell>
               <TableCell>Nome completo</TableCell>
               <TableCell>Email</TableCell>
             </TableRow>
@@ -81,7 +98,17 @@ export const ListagemDePessoas: React.FC = () => {
           <TableBody>
             {rows.map((row) => (
               <TableRow key={row.id}>
-                <TableCell></TableCell>
+                <TableCell align='center' sx={{ maxWidth: 50 }}>
+                  <IconButton size='small' onClick={() => handleDelete(row.id)}>
+                    <Icon>delete</Icon>
+                  </IconButton>
+                  <IconButton
+                    size='small'
+                    onClick={() => navigate(`/pessoas/detalhe/:${row.id}`)}
+                  >
+                    <Icon>edit</Icon>
+                  </IconButton>
+                </TableCell>
                 <TableCell>{row.nomeCompleto}</TableCell>
                 <TableCell>{row.email}</TableCell>
               </TableRow>
