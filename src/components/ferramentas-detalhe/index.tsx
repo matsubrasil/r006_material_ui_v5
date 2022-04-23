@@ -40,7 +40,7 @@ const FerramentasDeDetalhes = ({
   mostrarBotaoNovo = false,
   mostrarBotaoVoltar = true,
   mostrarBotaoApagar = false,
-  mostrarBotaoSalvar = false,
+  mostrarBotaoSalvar = true,
   mostrarBotaoSalvarEFechar = false,
 
   mostrarBotaoNovoCarregando = false,
