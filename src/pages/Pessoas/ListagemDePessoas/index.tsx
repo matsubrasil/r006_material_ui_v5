@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
   LinearProgress,
+  Pagination,
   Paper,
   Table,
   TableBody,
@@ -30,20 +31,25 @@ export const ListagemDePessoas: React.FC = () => {
     return searchParams.get('busca') || '';
   }, [searchParams]);
 
+  const pagina = useMemo(() => {
+    return Number(searchParams.get('pagina') || '1');
+  }, [searchParams]);
+
   useEffect(() => {
     setIsLoading(true);
     debounce(() => {
-      PessoasService.getAll(1, busca).then((result) => {
+      PessoasService.getAll(pagina, busca).then((result) => {
         setIsLoading(false);
         if (result instanceof Error) {
           alert(result.message);
           return;
         }
+        console.log(result);
         setTotalCount(result.totalCount);
         setRows(result.data);
       });
     });
-  }, [busca]);
+  }, [busca, pagina]);
 
   return (
     <LayoutBase
@@ -54,7 +60,7 @@ export const ListagemDePessoas: React.FC = () => {
           textoBotaoNovo='Nova'
           textoDaBusca={busca}
           aoMudarTextoDaBusca={(texto) =>
-            setSearchParams({ busca: texto }, { replace: true })
+            setSearchParams({ busca: texto, pagina: '1' }, { replace: true })
           }
         />
       }
@@ -86,15 +92,33 @@ export const ListagemDePessoas: React.FC = () => {
             <caption>{Environment.LISTAGEM_VAZIA}</caption>
           )}
 
-          {isLoading && (
-            <TableFooter>
+          <TableFooter>
+            {isLoading && (
               <TableRow>
                 <TableCell colSpan={3}>
                   <LinearProgress variant='indeterminate' />
                 </TableCell>
               </TableRow>
-            </TableFooter>
-          )}
+            )}
+
+            {totalCount > 0 &&
+              totalCount > Environment.LIMITE_DE_LINHAS &&
+              !isLoading && (
+                <TableRow>
+                  <TableCell colSpan={3}>
+                    <Pagination
+                      page={pagina}
+                      count={Math.ceil(
+                        totalCount / Environment.LIMITE_DE_LINHAS
+                      )}
+                      onChange={(e, newPage) =>
+                        setSearchParams({ busca, pagina: newPage.toString() })
+                      }
+                    />
+                  </TableCell>
+                </TableRow>
+              )}
+          </TableFooter>
         </Table>
       </TableContainer>
     </LayoutBase>
