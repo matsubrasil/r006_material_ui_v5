@@ -1,13 +1,14 @@
-import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Form } from '@unform/web';
 
 // components
-import { LayoutBase } from 'layouts';
 import FerramentasDeDetalhes from 'components/ferramentas-detalhe';
+import { VTextField } from 'shared/forms';
+import { LayoutBase } from 'layouts';
 
 // services
 import { PessoasService } from 'services/api';
-import { LinearProgress } from '@mui/material';
 
 // main
 export const DetalheDePessoas: React.FC = () => {
@@ -66,8 +67,10 @@ export const DetalheDePessoas: React.FC = () => {
         />
       }
     >
-      {isLoading && <LinearProgress variant='indeterminate' />}
-      <p>Detalhe de Pessoas Page {id}</p>
+      <Form onSubmit={(dados) => console.log(dados)}>
+        <VTextField name='nomeCompleto' />
+        <button type='submit'>Submit</button>
+      </Form>
     </LayoutBase>
   );
 };

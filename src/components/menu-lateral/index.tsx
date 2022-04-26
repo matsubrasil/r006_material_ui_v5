@@ -14,6 +14,7 @@ import {
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 import { useAppThemeContext, useDrawerContext } from 'shared/contexts';
 
+// interface
 interface IListItemLinkProps {
   to: string;
   icon: string;
@@ -21,6 +22,7 @@ interface IListItemLinkProps {
   onClick: (() => void) | undefined;
 }
 
+// component
 const ListItemLink = ({ to, icon, label, onClick }: IListItemLinkProps) => {
   const navigate = useNavigate();
   const resolvedPath = useResolvedPath(to);
@@ -44,6 +46,7 @@ const ListItemLink = ({ to, icon, label, onClick }: IListItemLinkProps) => {
   );
 };
 
+// main
 export const MenuLateral = ({ children }: { children: JSX.Element }) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
