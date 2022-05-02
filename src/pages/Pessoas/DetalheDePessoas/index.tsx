@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Form } from '@unform/web';
+import { FormHandles } from '@unform/core';
 
 // components
 import FerramentasDeDetalhes from 'components/ferramentas-detalhe';
@@ -10,12 +11,20 @@ import { LayoutBase } from 'layouts';
 // services
 import { PessoasService } from 'services/api';
 
+//  interface Form
+interface IFormData {
+  email: string;
+  nomeCompleto: string;
+  cidadeId: string;
+}
+
 // main
 export const DetalheDePessoas: React.FC = () => {
   const { id = 'nova' } = useParams<'id'>();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [nome, setNome] = useState('');
+  const formRef = useRef<FormHandles>(null);
 
   useEffect(() => {
     if (id !== 'nova') {
@@ -33,8 +42,8 @@ export const DetalheDePessoas: React.FC = () => {
     }
   }, [id]);
 
-  const handleSave = () => {
-    console.log('save');
+  const handleSave = (dados: IFormData) => {
+    console.log(dados);
   };
 
   const handleDelete = (id: number) => {
@@ -59,17 +68,18 @@ export const DetalheDePessoas: React.FC = () => {
           mostrarBotaoSalvarEFechar
           mostrarBotaoNovo={id !== 'nova'}
           mostrarBotaoApagar={id !== 'nova'}
-          aoClicarEmSalvar={handleSave}
-          aoClicarEmSalvarEFechar={handleSave}
+          aoClicarEmSalvar={() => formRef.current?.submitForm()}
+          aoClicarEmSalvarEFechar={() => formRef.current?.submitForm()}
           aoClicarEmApagar={() => handleDelete(Number(id))}
           aoClicarEmNovo={() => navigate('/pessoas/detalhe/nova')}
           aoClicarEmVoltar={() => navigate('/pessoas')}
         />
       }
     >
-      <Form onSubmit={(dados) => console.log(dados)}>
+      <Form ref={formRef} onSubmit={handleSave}>
         <VTextField name='nomeCompleto' />
-        <button type='submit'>Submit</button>
+        <VTextField name='email' />
+        <VTextField name='cidadeId' />
       </Form>
     </LayoutBase>
   );
