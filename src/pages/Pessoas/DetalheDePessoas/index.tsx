@@ -15,7 +15,7 @@ import { PessoasService } from 'services/api';
 interface IFormData {
   email: string;
   nomeCompleto: string;
-  cidadeId: string;
+  cidadeId: number;
 }
 
 // main
@@ -27,6 +27,7 @@ export const DetalheDePessoas: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   useEffect(() => {
+    // console.log('useEffect ==>');
     if (id !== 'nova') {
       setIsLoading(true);
       PessoasService.getById(Number(id)).then((result) => {
@@ -35,15 +36,36 @@ export const DetalheDePessoas: React.FC = () => {
           alert(result.message);
           navigate('/pessoas');
         } else {
-          console.log(result);
+          console.log('result', result);
           setNome(result.nomeCompleto);
+          formRef.current?.setData(result);
         }
       });
     }
   }, [id]);
 
   const handleSave = (dados: IFormData) => {
-    console.log(dados);
+    setIsLoading(true);
+
+    if (id === 'nova') {
+      PessoasService.create(dados).then((result) => {
+        setIsLoading(false);
+        if (result instanceof Error) {
+          alert(result.message);
+        } else {
+          navigate(`/pessoas/detalhe/${result}`);
+        }
+      });
+    } else {
+      PessoasService.updateById(Number(id), { id: Number(id), ...dados }).then(
+        (result) => {
+          setIsLoading(false);
+          if (result instanceof Error) {
+            alert(result.message);
+          }
+        }
+      );
+    }
   };
 
   const handleDelete = (id: number) => {
@@ -77,9 +99,9 @@ export const DetalheDePessoas: React.FC = () => {
       }
     >
       <Form ref={formRef} onSubmit={handleSave}>
-        <VTextField name='nomeCompleto' />
-        <VTextField name='email' />
-        <VTextField name='cidadeId' />
+        <VTextField placeholder='Nome completo' name='nomeCompleto' />
+        <VTextField placeholder='Email' name='email' />
+        <VTextField placeholder='Código da cidade' name='cidadeId' />
       </Form>
     </LayoutBase>
   );
